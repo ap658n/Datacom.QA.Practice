@@ -1,0 +1,19 @@
+{
+  "name": "datacom.qa.practice",
+  "version": "1.0.0",
+  "description": "Datacom technical exam",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.50.1",
+    "@types/node": "^22.13.5"
+  },
+  "dependencies": {
+    "install": "^0.13.0",
+    "phone-number-generator-js": "^1.2.12",
+    "unique-names-generator": "^4.7.1"
+  }
+}

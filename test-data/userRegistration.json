@@ -1,0 +1,31 @@
+{
+    "TC001":{
+        "country":"Philippines",
+        "msg": "Successfully registered the following information"
+
+    },
+    "TC002":{
+        "country":"Philippines",
+        "msg": "Successfully registered the following information"
+
+    },
+    "TC003":{
+        "country":"Philippines",
+        "msg": "The last name should contain characters!"
+    },
+    "TC004":{
+        "country":"Philippines",
+        "phoneNumber":"111",
+        "msg": "The phone number should contain at least 10 characters!"
+    },
+    "TC005":{
+        "country":"Philippines",
+        "phoneNumber":"111",
+        "msg": "The email should contain characters!"
+    },
+    "TC006":{
+        "country":"Philippines",
+        "password":"111",
+        "msg": "The password should contain between \\[6,20\\] characters!"
+    }
+}

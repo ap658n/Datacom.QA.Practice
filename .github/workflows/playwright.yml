@@ -1,0 +1,72 @@
+name: Playwright Tests
+on:
+ workflow_dispatch:
+    inputs:
+      trigger_uuid:
+        description: 'CI trigger'
+        required: false
+      test_tag:
+        type: string
+        required: true
+      test_env:
+        type: string
+        required: true
+      project:
+        type: string
+        required: true
+      worker:
+        required: true
+      job_title:
+        type: string
+        required: false
+
+jobs:
+  test:
+    timeout-minutes: 600
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - name: Install playwright package
+      run: npm i install
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    - name: Run Playwright tests
+      run: |
+        echo "TEST_ENV=$TEST_ENV" >> $GITHUB_ENV
+        npx playwright test --workers ${{github.event.inputs.worker}} --project="${{github.event.inputs.project}}" --grep "@${{inputs.test_tag}}"
+      env:
+        TEST_ENV: ${{inputs.test_env}}
+
+    - name: Read Summary Report to Get Test Results
+      if: always()
+      run: |
+            test_passed_count=$(cat ./results.json | jq -r '.stats.expected')
+            echo "test_passed_count=$test_passed_count" >> $GITHUB_ENV
+            test_failed_count=$(cat ./results.json | jq -r '.stats.unexpected')
+            echo "test_failed_count=$test_failed_count" >> $GITHUB_ENV
+            test_skipped_count=$(cat ./results.json | jq -r '.stats.skipped')
+            echo "test_skipped_count=$test_skipped_count" >> $GITHUB_ENV
+            test_flaky_count=$(cat ./results.json | jq -r '.stats.flaky')
+            echo "test_flaky_count=$test_flaky_count" >> $GITHUB_ENV
+            test_status=$(cat ./summary.json | jq -r '.status')
+            echo "test_status=$test_status" >> $GITHUB_ENV
+  
+    - name: Send success test results
+      if: success()
+      run: |
+            # Send Passed Status
+    - name: Send failure test results
+      run: |
+            # Send Failed Summary
+
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30
