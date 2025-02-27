@@ -152,7 +152,7 @@ export default class RegisterUserPage {
         await this.actions.stringIsMatch(result, 'Email Address*');
     }
     async validatePasswordLabel(){
-        console.log(`Validate user registration form email address label.`);
+        console.log(`Validate user registration form password label.`);
         await this.actions.validateVisibility(this.Elements.passwordTextField);
         const result = await this.actions.getElementText(this.Elements.passwordLabel);
         await this.actions.stringIsMatch(result, 'Password*');

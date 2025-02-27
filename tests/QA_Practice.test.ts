@@ -1,4 +1,4 @@
-import { test } from '../core/base/baseTestCase';
+import { test } from '../core/base/baseTest';
 import { DataGenerator } from '../core/helper/dataGenerator';
 import * as Data from '../test-data/userRegistration.json'
 
