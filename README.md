@@ -1,4 +1,4 @@
-# Datacom.QA.Practice
+# QA.Practice
 Datacom technical exam.
 
 # Code Exam
